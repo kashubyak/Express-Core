@@ -3,7 +3,6 @@ const router = express.Router()
 const authController = require('./auth.controller')
 const validateBody = require('../../middlewares/validateBody')
 const Joi = require('joi')
-const authRouter = require('./modules/auth/auth.routes')
 
 const registerSchema = Joi.object({
 	email: Joi.string().email().required(),
