@@ -16,6 +16,12 @@ app.get('/users', (req, res) => {
 	res.json(users)
 })
 
+app.use((req, res) => {
+	const time = new Date().toString()
+	console.log(`[${time}] ${req.method} ${req.url}`)
+	next()
+})
+
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`)
 })
