@@ -13,5 +13,8 @@ class ApiError extends Error {
 	static Internal(message = 'Internal Server Error') {
 		return new ApiError(500, message)
 	}
+	static Unauthorized() {
+		return new ApiError(401, 'User not authorized')
+	}
 }
 module.exports = ApiError
