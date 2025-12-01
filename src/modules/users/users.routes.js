@@ -6,7 +6,7 @@ const validateBody = require('../../middlewares/validateBody')
 
 const createUserSchema = Joi.object({
 	name: Joi.string().min(3).max(30).required(),
-	role: Joi.string().valid('admin', 'user', 'guest').default('user'),
+	role: Joi.string().valid('Jedi', 'Senator', 'Sith').required(),
 })
 
 router.get('/', usersController.getAll)
