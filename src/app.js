@@ -1,4 +1,5 @@
 const express = require('express')
+const usersRouter = require('./modules/users/users.routes')
 const app = express()
 
 app.use(express.json())
@@ -9,17 +10,15 @@ app.use((req, res, next) => {
 })
 
 app.get('/ping', (req, res) => res.send('pong'))
+app.use('/users', usersRouter)
 
-app.get('/users', (req, res) => {
-	res.json([
-		{ id: 1, name: 'Anakin', role: 'Jedi' },
-		{ id: 2, name: 'Padme', role: 'Senator' },
-	])
+app.use((req, res) => {
+	res.status(404).json({ message: 'Route not found' })
 })
 
 app.use((err, req, res, next) => {
 	console.error(err.stack)
-	res.status(500).json({ message: 'Internal Error' })
+	res.status(500).json({ message: 'Internal Server Error' })
 })
 
 module.exports = app

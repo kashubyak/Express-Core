@@ -1,6 +1,6 @@
-const app = require('./src/app.js')
-const PORT = 3000
+const app = require('./src/app')
+const config = require('./src/config/config')
 
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`)
+app.listen(config.port, () => {
+	console.log(`Server is running on port ${config.port} in ${config.env} mode`)
 })
