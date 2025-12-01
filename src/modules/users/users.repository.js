@@ -14,7 +14,7 @@ class UsersRepository {
 	}
 
 	async findByEmail(email) {
-		users.find(user => user.email === email)
+		return users.find(user => user.email === email)
 	}
 
 	async findById(id) {
