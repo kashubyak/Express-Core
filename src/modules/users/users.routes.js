@@ -1,8 +1,15 @@
 const express = require('express')
+const Joi = require('joi')
 const router = express.Router()
-const UsersController = require('./users.controller')
+const usersController = require('./users.controller')
+const validateBody = require('../../middlewares/validateBody')
 
-router.get('/', UsersController.getAll)
-router.post('/', UsersController.create)
+const createUserSchema = Joi.object({
+	name: Joi.string().min(3).max(30).required(),
+	role: Joi.string().valid('admin', 'user', 'guest').default('user'),
+})
+
+router.get('/', usersController.getAll)
+router.post('/', validateBody(createUserSchema), usersController.create)
 
 module.exports = router

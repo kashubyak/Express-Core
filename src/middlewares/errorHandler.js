@@ -15,4 +15,4 @@ const ErrorHandler = (err, req, res, next) => {
 		error: config.env === 'development' ? err.message : undefined,
 	})
 }
-module.exports = errorHandler
+module.exports = ErrorHandler
