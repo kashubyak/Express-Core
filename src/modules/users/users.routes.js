@@ -3,6 +3,8 @@ const Joi = require('joi')
 const router = express.Router()
 const usersController = require('./users.controller')
 const validateBody = require('../../middlewares/validateBody')
+const authMiddleware = require('../../middlewares/authMiddleware')
+const roleMiddleware = require('../../middlewares/roleMiddleware')
 
 const createUserSchema = Joi.object({
 	name: Joi.string().min(3).max(30).required(),
@@ -11,5 +13,6 @@ const createUserSchema = Joi.object({
 
 router.get('/', usersController.getAll)
 router.post('/', validateBody(createUserSchema), usersController.create)
+router.get('/', authMiddleware, roleMiddleware(['Jedi', 'Sith']), usersController.getAll)
 
 module.exports = router
