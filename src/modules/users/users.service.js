@@ -1,5 +1,6 @@
 const usersRepository = require('./users.repository')
 const redisClient = require('../../utils/redis')
+const logger = require('../../utils/logger')
 
 class UsersService {
 	async getAllUsers() {
@@ -14,11 +15,11 @@ class UsersService {
 		const cachedData = await redisClient.get(cacheKey)
 
 		if (cachedData) {
-			console.log(`Serving user ${id} from REDIS`)
+			logger.info(`Serving user ${id} from REDIS`)
 			return JSON.parse(cachedData)
 		}
 
-		console.log(`Serving user ${id} from DB`)
+		logger.info(`Serving user ${id} from DB`)
 		const user = await usersRepository.findById(id)
 
 		if (user) await redisClient.setEx(cacheKey, 3600, JSON.stringify(user))
