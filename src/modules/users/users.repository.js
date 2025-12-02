@@ -15,7 +15,7 @@ class UsersRepository {
 
 	async findById(id) {
 		return prisma.user.findUnique({
-			where: { id },
+			where: { id: parseInt(id) },
 		})
 	}
 
