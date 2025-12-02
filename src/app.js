@@ -1,14 +1,15 @@
 const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
-const requestId = require('./middlewares/requestId')
-const logger = require('./utils/logger')
-const notFoundHandler = require('./middlewares/notFoundHandler')
-const errorHandler = require('./middlewares/errorHandler')
-const usersRouter = require('./modules/users/users.routes')
-const authRouter = require('./modules/auth/auth.routes')
 const swaggerUi = require('swagger-ui-express')
 const swaggerSpecs = require('./config/swagger')
+const logger = require('./utils/logger')
+const requestId = require('./middlewares/requestId')
+const notFoundHandler = require('./middlewares/notFoundHandler')
+const errorHandler = require('./middlewares/errorHandler')
+const authRouter = require('./modules/auth/auth.routes')
+const usersRouter = require('./modules/users/users.routes')
+const healthRouter = require('./modules/health/health.routes')
 
 const app = express()
 
@@ -26,14 +27,11 @@ app.use((req, res, next) => {
 	next()
 })
 
-app.get('/health', (req, res) => {
-	res.status(200).json({ status: 'OK', uptime: process.uptime() })
-})
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs))
 
-app.get('/ping', (req, res) => res.send('pong'))
+app.use('/', healthRouter)
 app.use('/auth', authRouter)
 app.use('/users', usersRouter)
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs))
 
 app.use(notFoundHandler)
 app.use(errorHandler)
