@@ -6,8 +6,5 @@ const client = redis.createClient({
 
 client.on('error', err => console.log('Redis Client Error', err))
 client.on('connect', () => console.log('Connected to Redis'))
-;(async () => {
-	await client.connect()
-})()
 
 module.exports = client
