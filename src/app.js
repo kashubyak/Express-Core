@@ -7,6 +7,8 @@ const notFoundHandler = require('./middlewares/notFoundHandler')
 const errorHandler = require('./middlewares/errorHandler')
 const usersRouter = require('./modules/users/users.routes')
 const authRouter = require('./modules/auth/auth.routes')
+const swaggerUi = require('swagger-ui-express')
+const swaggerSpecs = require('./config/swagger')
 
 const app = express()
 
@@ -31,6 +33,7 @@ app.get('/health', (req, res) => {
 app.get('/ping', (req, res) => res.send('pong'))
 app.use('/auth', authRouter)
 app.use('/users', usersRouter)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs))
 
 app.use(notFoundHandler)
 app.use(errorHandler)
