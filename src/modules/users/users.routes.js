@@ -11,8 +11,7 @@ const createUserSchema = Joi.object({
 	role: Joi.string().valid('Jedi', 'Senator', 'Sith').required(),
 })
 
-router.get('/', usersController.getAll)
-router.post('/', validateBody(createUserSchema), usersController.create)
 router.get('/', authMiddleware, roleMiddleware(['Jedi', 'Sith']), usersController.getAll)
+router.post('/', validateBody(createUserSchema), usersController.create)
 
 module.exports = router
