@@ -1,8 +1,8 @@
-const usersService = require('./users.service')
-const usersRepository = require('./users.repository')
+const usersService = require('../../modules/users/users.service')
+const usersRepository = require('../../modules/users/users.repository')
 const redisClient = require('../../utils/redis')
 
-jest.mock('./users.repository')
+jest.mock('../../modules/users/users.repository')
 jest.mock('../../utils/redis')
 
 describe('UsersService', () => {

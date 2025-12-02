@@ -1,10 +1,10 @@
-const authService = require('./auth.service')
-const usersRepository = require('../users/users.repository')
+const authService = require('../../modules/auth/auth.service')
+const usersRepository = require('../../modules/users/users.repository')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const ApiError = require('../../utils/ApiError')
 
-jest.mock('../users/users.repository')
+jest.mock('../../modules/users/users.repository')
 jest.mock('bcrypt')
 jest.mock('jsonwebtoken')
 
