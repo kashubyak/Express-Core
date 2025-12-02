@@ -1,4 +1,5 @@
 const usersRepository = require('./users.repository')
+const redisClient = require('../../utils/redis')
 
 class UsersService {
 	async getAllUsers() {
