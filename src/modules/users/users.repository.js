@@ -1,30 +1,33 @@
-const users = [
-	{
-		id: 1,
-		name: 'Anakin',
-		email: 'ani@jedi.com',
-		password: '$2b$10$fS...hash...',
-		role: 'Jedi',
-	},
-]
+const prisma = require('../../utils/prisma')
 
 class UsersRepository {
 	async getAllUsers() {
-		return users
+		return prisma.user.findMany({
+			orderBy: { id: 'asc' },
+		})
 	}
 
 	async findByEmail(email) {
-		return users.find(user => user.email === email)
+		return prisma.user.findUnique({
+			where: { email },
+		})
 	}
 
 	async findById(id) {
-		return users.find(user => user.id === id)
+		return prisma.user.findUnique({
+			where: { id },
+		})
 	}
 
-	async createUser(user) {
-		const newUser = { id: users.length + 1, ...user }
-		users.push(newUser)
-		return newUser
+	async createUser(data) {
+		return prisma.user.create({
+			data: {
+				name: data.name,
+				email: data.email,
+				password: data.password,
+				role: data.role,
+			},
+		})
 	}
 }
 
