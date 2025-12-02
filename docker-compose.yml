@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  api:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgresql://user:password@postgres:5432/express_db?schema=public
+      REDIS_URL: redis://redis:6379
+      PORT: 3000
+      JWT_ACCESS_SECRET: super_secret_access_key
+      JWT_REFRESH_SECRET: super_secret_refresh_key
+      NODE_ENV: production
+    depends_on:
+      - postgres
+      - redis
+
   postgres:
     image: postgres:15
     environment:
